@@ -8,24 +8,9 @@ interface Props {
     todoItem: ITodo;
 }
 export const ToDoItem: React.FC<Props> = ({ todoItem }) => {
-    const { remove, complete, update } = useContext(ToDoContext);
+    const { remove, complete } = useContext(ToDoContext);
     const [editedText, setEditedText] = useState<string>('');
     const { id, completed, todo, deadline } = todoItem;
-
-    const handleSaveClick = () => {
-        if (editedText.trim()) {
-            setEditedText('');
-            update(id, editedText);
-        }
-    };
-
-    const handleCancelClick = () => {
-        setEditedText('');
-    };
-
-    const handleEditedText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEditedText(e.target.value);
-    };
 
     return (
         <div className="item">
@@ -33,9 +18,7 @@ export const ToDoItem: React.FC<Props> = ({ todoItem }) => {
                 <input type="checkbox" checked={completed} onChange={() => complete(id)} />
                 {editedText ? (
                     <EditItem
-                        onSaveClick={handleSaveClick}
-                        onCancelClick={handleCancelClick}
-                        onEditedText={handleEditedText}
+                        setEditedText={setEditedText}
                         editedText={editedText}
                         todoItem={todoItem}
                     />

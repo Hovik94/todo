@@ -26,10 +26,10 @@ export const AddToDos = () => {
 
     const handleAdd: SubmitHandler<IFormInput> = (data) => {
         const newTodo = {
-            todo: data.title,
-            completed: data.doneCheckbox,
+            todo: data[FORM_FIELDS.TITLE],
+            completed: data[FORM_FIELDS.DONE_CHECKBOX],
             userId: 1,
-            deadline: data.deadline,
+            deadline: data[FORM_FIELDS.TODO_DEADLINE],
         };
 
         addTodo(newTodo);

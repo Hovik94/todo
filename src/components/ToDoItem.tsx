@@ -1,7 +1,8 @@
-import { SetStateAction, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ITodo } from '../utils/helpers/types';
 import { ToDoContext } from '../contexts';
 import { Button } from './Button';
+import { EditItem } from './EditItem';
 
 interface Props {
     todoItem: ITodo;
@@ -22,7 +23,7 @@ export const ToDoItem: React.FC<Props> = ({ todoItem }) => {
         setEditedText('');
     };
 
-    const handleEditedText = (e: { target: { value: SetStateAction<string> } }) => {
+    const handleEditedText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditedText(e.target.value);
     };
 
@@ -31,19 +32,13 @@ export const ToDoItem: React.FC<Props> = ({ todoItem }) => {
             <div>
                 <input type="checkbox" checked={completed} onChange={() => complete(id)} />
                 {editedText ? (
-                    <div>
-                        <input type="text" value={editedText} onChange={handleEditedText} />
-                        <Button
-                            onClick={handleSaveClick}
-                            alt="Ok"
-                            src="https://cdn4.iconfinder.com/data/icons/icocentre-free-icons/137/f-check_256-256.png"
-                        />
-                        <Button
-                            onClick={handleCancelClick}
-                            alt="cancel"
-                            src="https://cdn0.iconfinder.com/data/icons/round-ui-icons/512/close_red.png"
-                        />
-                    </div>
+                    <EditItem
+                        onSaveClick={handleSaveClick}
+                        onCancelClick={handleCancelClick}
+                        onEditedText={handleEditedText}
+                        editedText={editedText}
+                        todoItem={todoItem}
+                    />
                 ) : (
                     <div>
                         <p className={completed ? 'complete' : ''}>{todo}</p>

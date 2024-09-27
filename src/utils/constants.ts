@@ -1,5 +1,6 @@
 import { FILTER_KEYS } from './enum';
 import * as Yup from 'yup';
+import { AnyObjectSchema } from 'yup';
 
 export const TODOS = [
     {
@@ -43,7 +44,7 @@ export const FORM_FIELDS = {
     TODO_DEADLINE: 'deadline',
 } as const
 
-export const VALIDATION_SCHEMA = Yup.object().shape({
+export const VALIDATION_SCHEMA:AnyObjectSchema = Yup.object().shape({
     title: Yup.string()
         .required('Fill the field')
         .max(Yup.ref('maxCharacters'), 'Title must be shorter than or equal to max characters'),
